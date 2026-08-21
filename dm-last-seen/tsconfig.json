@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "noImplicitAny": false,
+        "jsx": "preserve",
+        "lib": ["ESNext", "DOM"],
+        "noEmit": true,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "baseUrl": "../Vencord",
+        "paths": {
+            "@api/*": ["src/api/*"],
+            "@components/*": ["src/components/*"],
+            "@utils/*": ["src/utils/*"],
+            "@vencord/discord-types": ["node_modules/@vencord/discord-types"],
+            "@webpack/common": ["src/webpack/common"],
+            "@webpack/common/*": ["src/webpack/common/*"],
+            "@webpack": ["src/webpack/webpack"]
+        },
+        "typeRoots": ["../Vencord/node_modules/@types"]
+    },
+    "files": ["types/vencord.d.ts"],
+    "include": ["userplugins/**/*"]
+}
