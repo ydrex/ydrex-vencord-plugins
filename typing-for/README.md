@@ -1,20 +1,8 @@
-# vencord plugins
-
-Where i put my public vencord userplugins. One folder per plugin under `userplugins/`.
-
-Not official. Not affiliated with discord or vencord.
-
-## plugins
-
-| name | folder |
-|------|--------|
-| TypingFor | `userplugins/typingFor` |
-
-## TypingFor
+# TypingFor
 
 Gray text next to the typing bar above the chatbox. How long theyve been typing.
 
-### what the text means
+## what the text means
 
 Discord doesnt tell you how long someone has been typing. The plugin counts from when the bar shows up while your discord is open.
 
@@ -24,16 +12,18 @@ Discord doesnt tell you how long someone has been typing. The plugin counts from
 
 Discord resends typing every few seconds. The plugin keeps the first time so it doesnt jump back to `0s`.
 
-### install
+## install
 
-Turn off vencord auto update first (settings → vencord → updater → off).
+You need [vencord from source](https://docs.vencord.dev/installing) and pnpm.
 
-You need [vencord from source](https://docs.vencord.dev/installing), pnpm, and this repo downloaded.
+`deploy-vencord-plugins.bat` is a windows batch file. Not a java app. Not an exe. Just double click it.
 
 1. Run `deploy-vencord-plugins.bat`
 2. Paste your vencord folder path when asked (folder with `package.json`)
 3. Restart discord
 4. Enable **TypingFor** in plugin settings
+
+Turn off vencord auto update first (settings → vencord → updater → off).
 
 Data stays on your pc.
 

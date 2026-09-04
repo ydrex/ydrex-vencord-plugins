@@ -41,11 +41,18 @@ export function getStartedAt(channelId: string, userId: string) {
 
 export function pruneChannel(channelId: string, liveIds: Set<string>) {
     const prefix = `${channelId}:`;
-    for (const k of startedAt.keys()) {
+    for (const k of [...startedAt.keys()]) {
         if (!k.startsWith(prefix)) continue;
         const userId = k.slice(prefix.length);
         if (!liveIds.has(userId)) startedAt.delete(k);
     }
+}
+
+// bar can unmount before the store drops them. still wipe stale times.
+export function pruneStale() {
+    const channels = new Set<string>();
+    for (const k of startedAt.keys()) channels.add(k.slice(0, k.indexOf(":")));
+    for (const channelId of channels) pruneChannel(channelId, new Set(getLiveTypingIds(channelId)));
 }
 
 export function clearAll() {

@@ -27,7 +27,8 @@ import {
     formatTypingLabel,
     formatTypingTooltip,
     getLiveTypingIds,
-    pruneChannel
+    pruneChannel,
+    pruneStale
 } from "./store";
 
 function getTypingBar() {
@@ -58,8 +59,17 @@ function TypingTag({ channel }: { channel?: Channel | null; }) {
         (a, b) => a.length === b.length && a.every((id, i) => id === b[i])
     );
 
-    // drop people who stopped or the next start would keep the old time
-    if (channelId) pruneChannel(channelId, new Set(ids));
+    const idsKey = ids.join(",");
+
+    useEffect(() => {
+        if (!channelId) return;
+        pruneChannel(channelId, new Set(ids));
+    }, [channelId, idsKey]);
+
+    useEffect(() => {
+        if (!channelId) return;
+        return () => pruneChannel(channelId, new Set());
+    }, [channelId]);
 
     const label = channelId ? formatTypingLabel(channelId) : null;
 
@@ -127,8 +137,12 @@ export default definePlugin({
 
     host: null as HTMLDivElement | null,
     root: null as ReturnType<typeof createRoot> | null,
+    typingListener: null as (() => void) | null,
 
     start() {
+        this.typingListener = () => pruneStale();
+        TypingStore.addChangeListener(this.typingListener);
+
         const host = document.createElement("div");
         document.body.appendChild(host);
         this.host = host;
@@ -137,6 +151,10 @@ export default definePlugin({
     },
 
     stop() {
+        if (this.typingListener) {
+            TypingStore.removeChangeListener(this.typingListener);
+            this.typingListener = null;
+        }
         this.root?.unmount();
         this.root = null;
         this.host?.remove();
