@@ -62,7 +62,7 @@ export function clearAll() {
 function formatDuration(ms: number) {
     if (ms < 0) ms = 0;
 
-    const secs = Math.floor(ms / 1000);
+    const secs = Math.max(1, Math.floor(ms / 1000));
     if (secs < 60) return `${secs}s`;
 
     const mins = Math.floor(secs / 60);
