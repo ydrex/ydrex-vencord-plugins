@@ -10,7 +10,7 @@ Discord doesnt tell you how long someone has been typing. The plugin counts from
 
 **`12s / 4s`** more than one person. Same order as the bar.
 
-Discord resends typing every few seconds. The plugin keeps the first time so it doesnt jump back to `0s`.
+Discord resends typing every few seconds. The plugin keeps the first time so the clock doesnt restart.
 
 ## install
 
