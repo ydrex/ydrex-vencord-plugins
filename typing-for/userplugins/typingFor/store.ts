@@ -84,5 +84,9 @@ export function formatTypingLabel(channelId: string) {
     const ids = getLiveTypingIds(channelId);
     if (!ids.length) return null;
 
-    return ids.map(id => formatDuration(Date.now() - getStartedAt(channelId, id))).join(" / ");
+    return ids
+        .map(id => ({ t: getStartedAt(channelId, id) }))
+        .sort((a, b) => a.t - b.t)
+        .map(({ t }) => formatDuration(Date.now() - t))
+        .join(" / ");
 }

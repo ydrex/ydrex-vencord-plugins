@@ -66,11 +66,6 @@ function TypingTag({ channel }: { channel?: Channel | null; }) {
         pruneChannel(channelId, new Set(ids));
     }, [channelId, idsKey]);
 
-    useEffect(() => {
-        if (!channelId) return;
-        return () => pruneChannel(channelId, new Set());
-    }, [channelId]);
-
     const label = channelId ? formatTypingLabel(channelId) : null;
 
     useEffect(() => {
